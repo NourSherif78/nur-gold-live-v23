@@ -1,0 +1,28 @@
+# Progress - reviewer_r1
+
+- [x] State initialized (BRIEFING.md, progress.md)
+- [x] Step 1: Independent derivation of requirements
+- [x] Step 2: Adversarial testing & breaking the current implementation
+  - [x] Missing `test-suite.js` in root identified & reproduced
+  - [x] Security shield Windows backslash bypass identified & reproduced
+  - [x] Security shield null byte bypass identified & reproduced
+  - [x] Security shield malformed URI crash identified & reproduced
+  - [x] Folder shield without trailing slash bypass identified & reproduced
+  - [x] Missing `source_change` / `status_change` emission on primary tick recovery identified & reproduced
+  - [x] History lookup invalid date NaN response identified & reproduced
+  - [x] Admin PIN length upper-bound missing identified & reproduced
+  - [x] Client IP spoofing vulnerability in rate limiter / login tracker identified & reproduced
+  - [x] Missing `npm test` script in `package.json` identified
+- [x] Step 3: Implement fixes for all identified defects
+  - [x] Created root `test-suite.js` entrypoint
+  - [x] Fortified `src/security.js` (backslash normalization, null byte detection, malformed URI try-catch, folder match, trustProxy check)
+  - [x] Improved `src/haremFeed.js` (source_change emission on connect & live tick recovery, stale failover watchdog)
+  - [x] Hardened `src/config.js` (PIN length max 64, finite margins check, array length limit <= 50)
+  - [x] Hardened `src/adminRoutes.js` (PIN length max 64)
+  - [x] Robust number parser in `src/calculator.js` (Turkish comma-formatted decimals and Gram Gold aliases)
+  - [x] Strict date validation in `server.js` (`/api/history/lookup` rejects invalid dates with HTTP 400)
+  - [x] Added `"test": "node test-suite.js"` to `package.json`
+  - [x] Expanded test suite to 94 assertions covering all edge cases
+- [x] Step 4: Re-verification and test execution
+  - [x] `node test-suite.js` executes with 94 PASSED, 0 FAILED, exit code 0
+- [x] Step 5: Handoff report and parent communication
